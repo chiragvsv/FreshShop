@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fresh Basket</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 30px 15px 80px;
+      background: #f2f2f2;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2e7d32;
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      font-size: 16px;
+      margin: 20px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      margin: 12px 0;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #388e3c;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .emoji {
+      margin-right: 8px;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #fff;
+      padding: 10px;
+      font-size: 14px;
+      color: #333;
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+  </style>
+</head>
+<body onload="initPage()">
+  <div class="container">
+    <!-- Welcome + Name Entry -->
+    <div id="welcomeScreen">
+      <h2>Welcome to Fresh Fruits & Vegetables</h2>
+      <p>Please enter your name to get started</p>
+      <input type="text" id="userName" placeholder="Enter your name" />
+      <button onclick="getIn()">Get In</button>
+    </div>
+
+    <!-- Main Menu after login -->
+    <div id="menuScreen" class="hidden">
+      <h2 id="welcomeNote"></h2>
+      <p>Choose what you'd like to order today</p>
+
+      <button onclick="orderNow('Vegetables')"><span class="emoji">🥦</span>Order Fresh Vegetables</button>
+      <button onclick="orderNow('Fruits')"><span class="emoji">🍎</span>Order Fresh Fruits</button>
+      <button onclick="orderNow('Dairy')"><span class="emoji">🥛</span>Order Dairy Products</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    For Queries and Ask Call <strong>9980228743</strong>
+  </div>
+
+  <script>
+    function initPage() {
+      const name = localStorage.getItem("userName");
+      if (name) {
+        showMenu(name);
+      } else {
+        document.getElementById("welcomeScreen").classList.remove("hidden");
+      }
+    }
+
+    function getIn() {
+      let name = document.getElementById("userName").value.trim();
+      if (name) {
+        name = name.charAt(0).toUpperCase() + name.slice(1); // Capitalize first letter
+        localStorage.setItem("userName", name);
+        showMenu(name);
+      } else {
+        alert("Please enter your name");
+      }
+    }
+
+    function showMenu(name) {
+      document.getElementById("welcomeScreen").classList.add("hidden");
+      document.getElementById("menuScreen").classList.remove("hidden");
+      document.getElementById("welcomeNote").innerText = `Hey ${name}, welcome to your fresh basket!`;
+    }
+
+    function orderNow(item) {
+      if (item === "Vegetables") {
+        window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSfCsbRZ1-b0klNAxYEHXbyufN1M7bsBnVvaTqG97t-YQC-AXQ/viewform";
+      } else if (item === "Fruits") {
+        window.location.href = "https://forms.gle/ke8zHE8KvxfBswP56";
+      } else if (item === "Dairy") {
+        window.location.href = "https://forms.gle/Trfa8qg4R7iWE2g18";
+      }
+    }
+  </script>
+</body>
+</html>
